@@ -10,9 +10,11 @@ let board = [
     [5, 0, 8, 0, 0, 2, 1, 0, 3]
 ];
 
+
+// Funkcja wyszukuje pola równe 0 i podaje koordynaty (która tablica i jaki indeks), zwraca informację gdy wszystko jest pełne
 function nextEmptySpot(board) {
-    for (var i = 0; i < 9; i++) {
-        for (var j = 0; j < 9; j++) {
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
             if (board[i][j] === 0) 
                 return [i, j];
         }
@@ -20,8 +22,10 @@ function nextEmptySpot(board) {
     return [-1, -1];
 }
 
+//Funkcja sprawdza kolumny, iteruje dopóki są te same wartości
+
 function checkRow(board, row, value){
-    for(var i = 0; i < board[row].length; i++) {
+    for(let i = 0; i < board[row].length; i++) {
         if(board[row][i] === value) {
             return false;
         }
@@ -30,8 +34,10 @@ function checkRow(board, row, value){
     return true;
 }
 
+//Jak wyżej tylko dla kolumn
+
 function checkColumn(board, column, value){
-    for(var i = 0; i < board.length; i++) {
+    for(let i = 0; i < board.length; i++) {
         if(board[i][column] === value) {
             return false;
         }
@@ -40,12 +46,14 @@ function checkColumn(board, column, value){
     return true;
 };
 
+//Jak wyżej tylko dla mniejszych kwadratów 3x3
+
 function checkSquare(board, row, column, value){
     boxRow = Math.floor(row / 3) * 3;
     boxCol = Math.floor(column / 3) * 3;
     
-    for (var r = 0; r < 3; r++){
-        for (var c = 0; c < 3; c++){
+    for (let r = 0; r < 3; r++){
+        for (let c = 0; c < 3; c++){
             if (board[boxRow + r][boxCol + c] === value)
                 return false;
         }
@@ -54,6 +62,8 @@ function checkSquare(board, row, column, value){
     return true;
 };
 
+
+// Funkcja sprawdza wszystkie warunki
 function checkValue(board, row, column, value) {
     if(checkRow(board, row, value) &&
       checkColumn(board, column, value) &&
@@ -64,6 +74,8 @@ function checkValue(board, row, column, value) {
     return false; 
 };
 
+
+//Funkcja która ostatecznie rozwiązuje sudoku na bazie składowych funkcji. 
 function solve(board) {  
     let emptySpot = nextEmptySpot(board);
     let row = emptySpot[0];
@@ -87,7 +99,7 @@ function solve(board) {
     return board;
 }
 
-
+// Ostatnia funkcja któa wywołuje algorytm rozwiązujący sudoku i wizualizuje rozwiązanie w postaci stringów.
 function showSudoku()
 {
     solve(board);
